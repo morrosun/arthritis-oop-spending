@@ -107,8 +107,14 @@ run logs (`*.txt`, `*.log`) and machine-readable summaries (`*.json`).
 ## Citation
 
 If you use this code, please cite the article (full reference to be added on
-publication) and this repository. A versioned archive with a DOI will be deposited
-in Zenodo; the DOI will be added here once minted.
+publication) together with the archived release:
+
+- **Version 1.0.0 (frozen)** — https://doi.org/10.5281/zenodo.24192929
+- **Concept DOI (always resolves to the latest version)** — https://doi.org/10.5281/zenodo.24192928
+
+This README is a living document. The archived v1.0.0 was deposited on
+13 November 2026 and is frozen at that snapshot; it predates this citation
+section, which was added afterwards.
 
 ## License
 
