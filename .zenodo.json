@@ -1,0 +1,34 @@
+{
+  "title": "Analysis code for: Associations of self-reported arthritis with out-of-pocket medical spending across four harmonised ageing cohorts",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "MIT",
+  "version": "1.0.0",
+  "language": "eng",
+  "creators": [
+    {
+      "name": "Wang, Kai",
+      "affiliation": "Department of Rheumatology and Immunology, The Affiliated Huai'an No. 1 People's Hospital of Nanjing Medical University, Huai'an, Jiangsu, China"
+    }
+  ],
+  "keywords": [
+    "arthritis",
+    "out-of-pocket expenditure",
+    "ageing cohorts",
+    "HRS",
+    "SHARE",
+    "MHAS",
+    "LASI",
+    "two-part model",
+    "health equity",
+    "cross-country comparison"
+  ],
+  "description": "<p>Analysis code for a multi-cohort study of self-reported arthritis and household out-of-pocket medical spending in four harmonised ageing cohorts (HRS, SHARE, MHAS, LASI; 25 waves; 576,020 person-waves), with CHARLS as an extension cohort.</p><p>The pipeline covers variable discovery, wave-by-wave feasibility checks, construction of the person-wave analysis file, a two-part model (probability of any spending; amount among spenders) estimated cohort by cohort and synthesised by DerSimonian-Laird random effects, decomposition of the excess by service component, an event-study description of spending around first reported arthritis, country-level consistency and ecological meta-regression, and income-quintile and education effect-modification analyses with Benjamini-Hochberg control.</p><p><strong>No respondent-level data are included.</strong> Source data are distributed by the Gateway to Global Aging Data and the cohort programmes under their own data-use agreements; the scripts are read-only and expect a local PostgreSQL instance holding the harmonised files.</p>",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/morrosun/arthritis-oop-spending",
+      "relation": "isIdenticalTo",
+      "resource_type": "software"
+    }
+  ]
+}

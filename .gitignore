@@ -1,0 +1,28 @@
+# Derived outputs and logs
+outputs/
+out/
+data/
+*.log
+
+# Raw survey files (never committed)
+*.dta
+*.sav
+*.rds
+*.parquet
+
+# Local environment
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Cloud-sync artefacts
+*.baiduyun.*
+*.baiduyun.uploading.cfg
+~$*
