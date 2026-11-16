@@ -11,7 +11,7 @@ CONN = "host=%s port=%s user=%s password=%s" % (
     os.environ.get("OOPE_DB_PORT", "5432"),
     os.environ.get("OOPE_DB_USER", "postgres"),
     os.environ.get("OOPE_DB_PASSWORD", ""))
-DBS = ['mhas', 'hrs', 'share', 'lasi', 'charls', 'creles']
+DBS = ['mhas', 'hrs', 'share', 'lasi', 'charls']   # cohorts carried forward in the paper (see README)
 
 lines = []
 def log(s=''):

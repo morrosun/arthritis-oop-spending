@@ -10,7 +10,7 @@
 
 所有数值均从结果 CSV 读取，不硬编码；中英文图注一并参数化。
 术语：全稿统一用 excess（超额自付），不再用 attributable（归因自付）。
-输出：<ROOT>/方向A_Figures_CN.html、<ROOT>/方向A_Figures_EN.html
+输出：$OOPE_OUT_DIR/Figures_CN.html、$OOPE_OUT_DIR/Figures_EN.html
 """
 import os, math, html, numpy as np, pandas as pd
 
@@ -769,8 +769,8 @@ def build(lang):
             + '\n'.join(body) +
             f'<div class="foot">{esc(foot)}</div></div></body></html>')
 
-for lang, name in [('zh','方向A_Figures_CN.html'), ('en','方向A_Figures_EN.html')]:
-    p = os.path.join(ROOT, name)
+for lang, name in [('zh','Figures_CN.html'), ('en','Figures_EN.html')]:
+    p = os.path.join(OUT, name)
     with open(p, 'w', encoding='utf-8') as f:
         f.write(build(lang))
     print('WROTE', p, os.path.getsize(p), 'bytes')

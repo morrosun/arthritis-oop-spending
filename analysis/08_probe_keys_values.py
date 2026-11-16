@@ -29,8 +29,6 @@ CFG = {
     'charls':dict(key='id', tabs=['harm_h_charls_d_data_p2', 'harm_h_charls_eol_a'],
                   probe_arth=['r1arthre', 'r4arthre'], probe_oop=['r1oopdoc1m', 'r1oophos1y'],
                   flags=['raxoopmd1y_c']),
-    'creles':dict(key='idsujeto', tabs=['h_creles'],
-                  probe_arth=['r1arthre'], probe_oop=['r1oopmdv3m'], flags=[]),
 }
 
 lines = []

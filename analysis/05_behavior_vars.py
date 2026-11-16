@@ -10,7 +10,7 @@ CONN = "host=%s port=%s user=%s password=%s" % (
     os.environ.get("OOPE_DB_PORT", "5432"),
     os.environ.get("OOPE_DB_USER", "postgres"),
     os.environ.get("OOPE_DB_PASSWORD", ""))
-DBS = ['charls', 'hrs', 'share', 'mhas', 'lasi', 'creles', 'elsa', 'klosa', 'clhls', 'elsa_raw']
+DBS = ['charls', 'hrs', 'share', 'mhas', 'lasi']   # cohorts carried forward in the paper (see README)
 PATTERNS = ['%afford%', '%forgo%', '%forgone%', '%cost-related%', '%due to cost%',
             '%because of%cost%', '%could not%pay%', '%no money%', '%unmet need%',
             '%discontinu%', '%skip%med%', '%stopped%med%', '%not take%med%',

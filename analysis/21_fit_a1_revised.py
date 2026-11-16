@@ -79,8 +79,11 @@ def meta_dl(rows):
     w=1/se**2; mf=(w*y).sum()/w.sum(); Q=float((w*(y-mf)**2).sum())
     C=w.sum()-(w**2).sum()/w.sum(); tau2=max(0.0,(Q-(k-1))/C) if C>0 else 0.0
     wr=1/(se**2+tau2); mu=float((wr*y).sum()/wr.sum()); sm_=float(np.sqrt(1/wr.sum()))
+    # 95% 预测区间：Higgins-Thompson-Spiegelhalter，t 分布 df=k-2（k=2 时退化为正态）
+    se_pi=float(np.sqrt(tau2+sm_**2)); tpi=float(stats.t.ppf(.975,k-2)) if k>2 else 1.96
     return dict(k=k, pooled_effect=float(np.exp(mu)), lo=float(np.exp(mu-1.96*sm_)),
                 hi=float(np.exp(mu+1.96*sm_)), p=float(2*stats.norm.sf(abs(mu/sm_))),
+                pi_lo=float(np.exp(mu-tpi*se_pi)), pi_hi=float(np.exp(mu+tpi*se_pi)),
                 Q=Q, Q_p=float(stats.chi2.sf(Q,k-1)) if k>1 else None,
                 I2=max(0.0,(Q-(k-1))/Q*100) if Q>0 else 0.0, tau2=tau2)
 

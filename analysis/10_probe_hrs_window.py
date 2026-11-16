@@ -56,7 +56,7 @@ conn.close()
 log("\n########## 各库支出分项变量（r 系列，按波） ##########")
 PAT = re.compile(r'^r(\d+)oop(?!md)([a-z0-9_]*)$', re.I)
 for db, key in [('mhas','rahhidnp'), ('share','mergeid'), ('lasi','prim_key'),
-                ('charls','id'), ('creles','idsujeto'), ('hrs','hhidpn')]:
+                ('charls','id'), ('hrs','hhidpn')]:
     conn = psycopg2.connect(CONN + " dbname=" + db)
     cur = conn.cursor()
     cur.execute("""SELECT DISTINCT column_name FROM information_schema.columns

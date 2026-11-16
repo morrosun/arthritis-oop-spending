@@ -10,7 +10,7 @@ CONN = "host=%s port=%s user=%s password=%s" % (
     os.environ.get("OOPE_DB_PORT", "5432"),
     os.environ.get("OOPE_DB_USER", "postgres"),
     os.environ.get("OOPE_DB_PASSWORD", ""))
-DBS = ['charls', 'hrs', 'share', 'mhas', 'lasi', 'creles', 'elsa', 'clhls', 'klosa', 'elsa_raw']
+DBS = ['charls', 'hrs', 'share', 'mhas', 'lasi']   # cohorts carried forward in the paper (see README)
 RDATA_DIRS = [p for p in os.environ.get("OOPE_RDATA_DIRS", "").split(os.pathsep) if p]
 
 lines = []

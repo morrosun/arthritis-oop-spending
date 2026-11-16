@@ -18,24 +18,39 @@ are included, and none can be redistributed. See *Data* below.
 ## Data
 
 All input data come from the [Gateway to Global Aging Data](https://g2aging.org/)
-harmonised files and the original cohort programmes:
+harmonised files and the original cohort programmes, with HRS taken from the RAND HRS
+Longitudinal File (2022v1), which carries wave 16:
 
 | Cohort | Provider | Access |
 |---|---|---|
-| HRS | University of Michigan | registration + data-use agreement |
+| HRS | University of Michigan (RAND HRS Longitudinal File 2022v1) | registration + data-use agreement |
 | SHARE | SHARE-ERIC | registration + data-use agreement |
 | MHAS | University of Texas / INEGI | registration |
 | LASI | University of Southern California / IIPS | registration |
 | CHARLS | Peking University | registration |
 
 The harmonised files were loaded into a local PostgreSQL instance, one database per
-cohort (`hrs`, `share`, `mhas`, `lasi`, `charls`, …), keeping the table names used by
+cohort (`hrs`, `share`, `mhas`, `lasi`, `charls`), keeping the table names used by
 the Gateway distribution (for example `h_mhas_d_p3`, `randhrs1992_2022v1_p7`,
-`gh_share_p4`). Only the respondent-level `r` variable series is used; the `s`
-(spouse-mirror) series is excluded throughout.
+`gh_share_p4`).
+
+The spouse-mirror `s` variable series is excluded throughout: it duplicates the
+partner's answer onto the respondent row and would double-count couples. Household-level
+variables (`hh…`, `h…itot` for income and consumption) and time-invariant variables
+(`ragender`, `raeducl`) are used where the construct itself is household-level or fixed;
+the full variable list and its provenance are in `docs/codebook.md`.
 
 Because access is governed by data-use agreements, the scripts assume the databases
 already exist locally. They are read-only: every query is a `SELECT`.
+
+## Cohort screening
+
+Ten cohort databases were screened for a comparable twelve-month household OOP total.
+Five are analysed here. CLHLS and KLOSA field no out-of-pocket item; neither the ELSA
+harmonised release nor its raw files provide an annual total; and CRELES records
+three-month expenditure in two non-overlapping subsamples with 86–91% zero values.
+The discovery scripts in `analysis/` therefore reference only the five cohorts used in
+the paper.
 
 ## Requirements
 
@@ -59,7 +74,7 @@ environment:
 | `OOPE_DB_PORT` | `5432` | PostgreSQL port |
 | `OOPE_DB_USER` | `postgres` | database user |
 | `OOPE_DB_PASSWORD` | *(empty)* | database password |
-| `OOPE_OUT_DIR` | `<repo>/outputs` | directory for all derived tables and logs |
+| `OOPE_OUT_DIR` | `<repo>/outputs` | directory for all derived tables, logs, figures and exported image files |
 | `OOPE_RDATA_DIRS` | *(empty)* | `os.pathsep`-separated list of directories holding the raw `.dta` files (only used by `03_var_exact.py`) |
 
 ```bash
@@ -76,7 +91,7 @@ to `$OOPE_OUT_DIR`.
 | Step | Scripts | Purpose |
 |---|---|---|
 | 1. Variable discovery | `01`, `03`, `05`, `07`–`10` | locate OOP, arthritis and covariate variables and their wave coverage in the harmonised files |
-| 2. Feasibility | `11` | wave-by-wave OOP distributions, arthritis cell sizes, imputation flags |
+| 2. Feasibility | `11`, `13` | wave-by-wave OOP distributions, arthritis cell sizes, imputation flags; summary table of the wave screen |
 | 3. Components and thresholds | `12`, `14`, `15` | inpatient/outpatient/drug components; income-denominated burden thresholds |
 | 4. Covariates and deflators | `16`, `17`, `17b` | covariate availability; World Bank PPP and CPI extracts |
 | 5. Analysis data set | `18`, `19` | build the person-wave analysis file; audit the joins and row counts |
@@ -88,10 +103,23 @@ to `$OOPE_OUT_DIR`.
 | 11. Diagnostics | `30`, `31`, `32` | MHAS wave-gap check; reversal of the 40% threshold after adjustment; SHARE income-definition check |
 | 12. Figures | `33`, `34`, `36` | five publication figures; value validation; TIFF/EPS/PDF/SVG export |
 
+**`20` and `21` both fit the primary model.** `20` is the initial specification, which
+combines all SHARE waves; `21` is the specification reported in the paper, in which the
+income-based threshold outcomes use SHARE wave 1 only because the wave 2/5/6 income
+variable changes definition. The any-spending and amount estimates are identical in the
+two; the threshold estimates are not. `22` reads the tables from both and reports the
+`main_revised` tier, i.e. the estimates in the paper.
+
+Every synthesis is accompanied by a 95% prediction interval (`21_fit_a1_revised.py`,
+`35_a4_consistency.py`), computed from a t distribution with k−2 degrees of freedom.
+Heterogeneity is reported as Cochran Q, I² and τ².
+
 ## Outputs
 
 All derived files land in `$OOPE_OUT_DIR` (git-ignored): result tables (`*.csv`),
-run logs (`*.txt`, `*.log`) and machine-readable summaries (`*.json`).
+run logs (`*.txt`, `*.log`), machine-readable summaries (`*.json`), the figure source
+documents (`Figures_EN.html`, `Figures_CN.html`) and, after `36_export_figures.py`,
+the exported EPS/TIFF/PDF/SVG files under `$OOPE_OUT_DIR/figures/`.
 
 ## What is intentionally not included
 
@@ -100,7 +128,9 @@ run logs (`*.txt`, `*.log`) and machine-readable summaries (`*.json`).
 - **Manuscript and submission tooling.** The manuscript builder, the reference
   renumbering and verification utilities, the table/figure packaging scripts and the
   declarations cross-check are part of the submission workflow and embed unpublished
-  text; they are not analysis code and are not published here.
+  text; they are not analysis code and are not published here. This is why the
+  numbering has gaps: `02`, `04` and `06` were literature-scoping searches (PubMed
+  E-utilities) that produced no analysis, and `37`–`46` are submission tooling.
 - **Intermediate results.** Every table and figure is regenerated by the pipeline
   above from the source databases.
 
@@ -109,12 +139,13 @@ run logs (`*.txt`, `*.log`) and machine-readable summaries (`*.json`).
 If you use this code, please cite the article (full reference to be added on
 publication) together with the archived release:
 
-- **Version 1.0.0 (frozen)** — https://doi.org/10.5281/zenodo.24192929
 - **Concept DOI (always resolves to the latest version)** — https://doi.org/10.5281/zenodo.24192928
+- **Version 1.0.0 (frozen, 13 November 2026)** — https://doi.org/10.5281/zenodo.24192929
 
-This README is a living document. The archived v1.0.0 was deposited on
-13 November 2026 and is frozen at that snapshot; it predates this citation
-section, which was added afterwards.
+Version 1.0.1 applies the runnability and documentation fixes described in the release
+notes (cohort lists restricted to the five analysed cohorts, output paths unified on
+`OOPE_OUT_DIR`, prediction intervals added to the synthesis output). It does not change
+any estimate reported in the paper.
 
 ## License
 

@@ -12,8 +12,7 @@ with open(os.path.join(OUT, '12_components_charls.json'), encoding='utf-8') as f
 rows = D11['rows']
 
 MAIN = ['mhas', 'hrs', 'share', 'lasi']
-EXCLUDE = {('share', 7), ('hrs', 2), ('creles', 1), ('creles', 2), ('creles', 3),
-           ('creles', 4), ('creles', 5)}
+EXCLUDE = {('share', 7), ('hrs', 2)}
 
 lines = []
 def log(s=''):
@@ -25,7 +24,7 @@ def f2(x): return '—' if x is None else f'{x:.2f}'
 
 log("# 方向 A 可行性描述表（Table 1 草稿）")
 log("")
-log("金额单位：各库本币名义值，已统一年化（HRS w3–w16 原为 2 年口径，除以 2；CRELES 原为 3 个月，乘 4）。")
+log("金额单位：各库本币名义值，已统一年化（HRS w3–w16 原为 2 年口径，除以 2）。")
 log("剔除了 ≥999996 的哨兵值与负值。关节炎 = `r{w}arthre` = 1（自报 ever-diagnosed，仅受访者本人）。")
 log("所有组间差异为**未校正的描述性差异**，不含任何推断统计。")
 log("")
@@ -45,7 +44,7 @@ for db in MAIN:
             f"{f1(r['arth_prevalence_pct'])} | {f1(r['posrate_a1_pct'])} / {f1(r['posrate_a0_pct'])} | "
             f"{f0(r['p50_a1pos'])} / {f0(r['p50_a0pos'])} | {f2(r['median_ratio_a1_a0'])} |")
 log("")
-log("⚠️ = 建议排除出主分析（见 §4）。CRELES 5 波另列于 §3，仅作敏感性。")
+log("⚠️ = 建议排除出主分析（见 §3）。")
 log("")
 
 # 汇总
@@ -75,25 +74,11 @@ log(f"| **四库合计** | **{sum(len([x for x in rows if x['db']==d]) for d in 
     f"({sum(summary[d]['waves_selected'] for d in MAIN)})** | **{tot_all:,.0f} ({tot_sel:,.0f})** | "
     f"**{art_all:,.0f} ({art_sel:,.0f})** | **1.14–1.51** | **+1.7–+15.8** |")
 log("")
-log("括号内为建议排除 SHARE w7、HRS w2 后的主分析样本。CRELES 未计入。")
-log("")
-
-# CRELES
-log("## 3. CRELES（仅作敏感性，不进主分析）")
-log("")
-log("| 波(年) | 年化因子 | 有效 N | 零值% | 中位 | P95 | 患病率% | 中位比 |")
-log("|---|---:|---:|---:|---:|---:|---:|---:|")
-for r in [x for x in rows if x['db'] == 'creles']:
-    log(f"| w{int(r['wave'])} ({int(r['year'])}) | {r['divisor']:.2f} | {f0(r['n_valid'])} | "
-        f"{f1(r['zero_pct'])} | {f0(r['p50'])} | {f0(r['p95'])} | "
-        f"{f1(r['arth_prevalence_pct'])} | {f2(r['median_ratio_a1_a0'])} |")
-log("")
-log("CRELES 分项加总/总额的中位比为 12–18、corr 仅 0.01–0.45（3 个月总额 vs 年度住院 + 月度专科，口径不相容），")
-log("且 86–91% 为零值、双队列样本不重叠 → **排除出金额主分析**。")
+log("括号内为建议排除 SHARE w7、HRS w2 后的主分析样本。")
 log("")
 
 # 分项一致性
-log("## 4. 支出分项：可得性与加总一致性（A2 的可行性证据）")
+log("## 3. 支出分项：可得性与加总一致性（A2 的可行性证据）")
 log("")
 log("| 库 | 波 | 分项（覆盖率） | 分项和/总额 中位比 | corr | 精确相等 | 判定 |")
 log("|---|---|---|---:|---:|---:|---|")
@@ -107,11 +92,11 @@ for db in MAIN:
                 f"{cs['corr']:.4f} | {cs['n_exact_match']:,}/{cs['n']:,} | ✅ 精确分解 |")
 log("")
 log("**HRS 无任何支出分项变量**（RAND 只给总额 `r{w}oopmd`）→ A2 结构分解只能基于 MHAS / SHARE / LASI 三库")
-log("（CHARLS 可用自建分项，但见 §5 的口径限制）。")
+log("（CHARLS 可用自建分项，但见 §4 的口径限制）。")
 log("")
 
 # CHARLS
-log("## 5. CHARLS 自建年化总额与 EOL 公式对账")
+log("## 4. CHARLS 自建年化总额与 EOL 公式对账")
 log("")
 log("在世波次自建公式：`r{w}oopdoc1m × 12 + r{w}oophos1y + r{w}oopden1y`（w1/w4 无牙科项）。")
 log("")

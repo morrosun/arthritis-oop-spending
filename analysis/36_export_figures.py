@@ -21,12 +21,12 @@ from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPS
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, 'out')
-DEST = os.path.join(ROOT, 'figures')
+_HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.environ.get("OOPE_OUT_DIR", os.path.join(os.path.dirname(_HERE), "outputs"))
+DEST = os.path.join(OUT, 'figures')
 os.makedirs(DEST, exist_ok=True)
-HTML = {'EN': os.path.join(ROOT, '方向A_Figures_EN.html'),
-        'CN': os.path.join(ROOT, '方向A_Figures_CN.html')}
+HTML = {'EN': os.path.join(OUT, 'Figures_EN.html'),
+        'CN': os.path.join(OUT, 'Figures_CN.html')}
 NAMES = {1: 'forest', 2: 'eventstudy', 3: 'components', 4: 'countries',
          5: 'ses_stratified'}
 NFIG = len(NAMES)

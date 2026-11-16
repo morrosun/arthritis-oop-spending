@@ -11,7 +11,7 @@ CONN = "host=%s port=%s user=%s password=%s" % (
     os.environ.get("OOPE_DB_PORT", "5432"),
     os.environ.get("OOPE_DB_USER", "postgres"),
     os.environ.get("OOPE_DB_PASSWORD", ""))
-DBS = ['mhas', 'hrs', 'share', 'lasi', 'charls', 'creles', 'klosa']
+DBS = ['mhas', 'hrs', 'share', 'lasi', 'charls']   # cohorts carried forward in the paper (see README)
 
 # 关注变量正则
 PAT_TOTAL = re.compile(r'^[rs]\d+oopmd(1y(_l|_m)?|v3m)?$|^h2oopmd$|^reoopmd$|^r\d+oopmd$|^raxoopmd1y_c$', re.I)
@@ -59,7 +59,7 @@ for db in DBS:
             if tot:  log(f"     总额变量({len(tot)}): {', '.join(tot[:25])}")
             if art:  log(f"     arthre({len(art)}): {', '.join(art[:25])}")
             if comp: log(f"     分项({len(comp)}): {', '.join(comp[:20])}")
-        elif db in ('klosa', 'creles') and len(cols) < 300:
+        elif len(cols) < 300:
             log(f"  {t}: cols={len(cols)} est_rows={est} ids={ids[:5]} sample={cols[:12]}")
     report[db] = tabinfo
     conn.close()

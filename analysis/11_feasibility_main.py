@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """方向 A 可行性描述表（主）：逐库逐波 OOPE 分布 + 关节炎交叉样本量 + 插补标记分布。
-只读；金额一律换算为「年化、本币名义值」：HRS w3-16 除以 2，CRELES 3 个月乘 4。
+只读；金额一律换算为「年化、本币名义值」：HRS w3-16 除以 2。
 结果增量落盘 11_feasibility_main.txt，最终汇总 11_feasibility_main.json / .csv。
 注意：本脚本只做描述统计，不做任何推断统计与模型拟合。"""
 import os, json, csv, time, psycopg2
@@ -39,12 +39,6 @@ CFG = {
               div=lambda w: 1.0, imputed='f IN (2,3,5,7)',
               years={1:2017},
               note='12 个月；单波横断面；flag 编码同 SHARE 体系'),
- 'creles': dict(key='idsujeto', oop_tab='h_creles', arth_tab='h_creles',
-              waves=[1,2,3,4,5], oop=lambda w: f'r{w}oopmdv3m',
-              flag=None, arth=lambda w: f'r{w}arthre',
-              div=lambda w: 0.25, imputed=None,
-              years={1:2005,2:2007,3:2009,4:2012,5:2015},
-              note='3 个月口径，×4 年化；无插补标记；双队列不重叠，仅作敏感性'),
 }
 
 lines = []

@@ -10,7 +10,7 @@ CONN = "host=%s port=%s user=%s password=%s" % (
     os.environ.get("OOPE_DB_PORT", "5432"),
     os.environ.get("OOPE_DB_USER", "postgres"),
     os.environ.get("OOPE_DB_PASSWORD", ""))
-DBS = ['charls', 'clhls', 'hrs', 'share', 'lasi', 'klosa', 'mhas', 'creles', 'elsa', 'elsa_raw']
+DBS = ['charls', 'hrs', 'share', 'lasi', 'mhas']   # cohorts carried forward in the paper (see README)
 
 GROUPS = {
     'RHEUM': ['arth', 'rheum', 'osteo', 'gout', 'uric', 'lupus', 'autoimm',

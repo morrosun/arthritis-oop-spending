@@ -29,9 +29,6 @@ COMP = {
  'charls': dict(tab='harm_h_charls_d_data_p2', waves=[1,2,3,4], total=None,
    parts={'doc1m':[1,2,3,4], 'hos1y':[1,2,3,4], 'den1y':[2,3]},
    var=lambda w, p: f'r{w}oop{p}'),
- 'creles': dict(tab='h_creles', waves=[1,2,3,4,5], total=lambda w: f'r{w}oopmdv3m',
-   parts={'hos1y':[1,2,3,4,5], 'spc1m':[1,2,3,4,5], 'oth1m':[1,2,3,4,5]},
-   var=lambda w, p: f'r{w}oop{p}'),
 }
 
 lines = []

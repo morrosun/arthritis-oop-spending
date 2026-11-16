@@ -5,10 +5,10 @@
 import os, re, html, xml.etree.ElementTree as ET
 import pandas as pd
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, 'out')
-FILES = {'zh': os.path.join(ROOT,'方向A_Figures_CN.html'),
-         'en': os.path.join(ROOT,'方向A_Figures_EN.html')}
+_HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.environ.get("OOPE_OUT_DIR", os.path.join(os.path.dirname(_HERE), "outputs"))
+FILES = {'zh': os.path.join(OUT,'Figures_CN.html'),
+         'en': os.path.join(OUT,'Figures_EN.html')}
 lines = []
 def log(s=''): print(s, flush=True); lines.append(str(s))
 
