@@ -46,9 +46,10 @@ already exist locally. They are read-only: every query is a `SELECT`.
 ## Cohort screening
 
 Ten cohort databases were screened for a comparable twelve-month household OOP total.
-Five are analysed here. CLHLS and KLOSA field no out-of-pocket item; neither the ELSA
-harmonised release nor its raw files provide an annual total; and CRELES records
-three-month expenditure in two non-overlapping subsamples with 86–91% zero values.
+Five are analysed here; the other five could not supply a comparable total: KLOSA carries no
+out-of-pocket item, CLHLS records item-level costs only, the two ELSA releases contain no
+comparable annual total, and CRELES measures three-month expenditure in two non-overlapping
+subsamples with 86–91% zero values.
 The discovery scripts in `analysis/` therefore reference only the five cohorts used in
 the paper.
 
